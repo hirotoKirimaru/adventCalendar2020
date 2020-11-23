@@ -13,11 +13,17 @@
 		<tr>
 			<th>ID</th>
 			<th>USER_ID</th>
+			<th>ACTION</th>
 		</tr>
 		<tr th:each="todo : ${todos}">
-			<td th:text="${todo.id}"></td>
-			<td th:text="${todo.userId}"></td>
+			<form action="/" method="post">
+				<td th:text="${todo.id}" name="id"></td>
+				<td th:text="${todo.userId}" name="userId"></td>
+                <td><input type="text" th:value="${todo.action}" name="action"></td>
+				<td><input type="submit" value="修正"></td>
+			</form>
 		</tr>
+
 	</table>
 </body>
 
