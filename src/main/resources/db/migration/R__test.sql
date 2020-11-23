@@ -1,4 +1,5 @@
 CREATE TABLE TODOS(
     id int,
-    user_id varchar
+    user_id varchar,
+    'action' varchar
 );
