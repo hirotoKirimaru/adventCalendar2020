@@ -23,6 +23,12 @@ public class IndexController {
                 TodoDto.builder().id(2).userId("kirimaru").action("郵便局に行く").build());
 
         model.addAttribute("message", "きり丸さんこんにちは");
+        
+        List<TodoDto> currentTodoList = todoRepository.findList("kirimaru");
+        if (!currentTodoList.isEmpty()){
+            todos = currentTodoList;
+        }
+
         model.addAttribute("todos", todos);
         return "index";
     }
