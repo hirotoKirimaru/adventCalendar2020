@@ -9,9 +9,9 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface TodoRepository {
     
-    @Insert("INSERT INTO todo (id, user_id, action) VALUES (#{id}, #{userId}, #{action})")
+    @Insert("INSERT INTO todos (id, user_id, action) VALUES (#{id}, #{userId}, #{action})")
     public void insert(TodoDto todo);
 
-    @Select("SELECT * FROM todo WHERE id = #{id} AND user_id = #{userId}")
+    @Select("SELECT * FROM todos WHERE id = #{id} AND user_id = #{userId}")
     public TodoDto select(int id, String userId);
 }
