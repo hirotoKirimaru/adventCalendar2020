@@ -17,10 +17,20 @@
 		</tr>
 		<tr th:each="todo : ${todos}">
 			<form action="/" method="post">
-				<td th:text="${todo.id}" name="id"></td>
-				<td th:text="${todo.userId}" name="userId"></td>
+				<td th:text="${todo.id}"><input type="hidden" name="id" th:value="${todo.id}"></td>
+				<td th:text="${todo.userId}"><input type="hidden" name="userId" th:value="${todo.userId}"></td>
                 <td><input type="text" th:value="${todo.action}" name="action"></td>
-				<td><input type="submit" value="修正"></td>
+				<td><input type="submit" name="edit" value="修正"></td>
+				<td><input type="submit" name="delete" value="削除"></td>
+
+			</form>
+		</tr>
+        <tr>
+			<form action="/" method="post">
+                <td></td>
+                <td></td>
+	            <td><input type="text" name="action"></td>
+				<td><input type="submit" name="add" value="追加"></td>
 			</form>
 		</tr>
 
