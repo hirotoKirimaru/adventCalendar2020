@@ -10,8 +10,8 @@ import org.apache.ibatis.annotations.Select;
 public interface TodoRepository {
     
     @Insert("INSERT INTO todo (id, user_id, action) VALUES (#{id}, #{userId}, #{action})")
-    void insert(TodoDto todo);
+    public void insert(TodoDto todo);
 
     @Select("SELECT * FROM todo WHERE id = #{id} AND user_id = #{userId}")
-    TodoDto select(int id, String userId);
+    public TodoDto select(int id, String userId);
 }

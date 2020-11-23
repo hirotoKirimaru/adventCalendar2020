@@ -3,14 +3,20 @@ package com.example.demo.controller;
 import java.util.List;
 
 import com.example.demo.controller.dto.TodoDto;
+import com.example.demo.repository.TodoRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
+    private final TodoRepository TodoRepository;
+
     @GetMapping("/")
     public String index(Model model) {
         List<TodoDto> todos = List.of(TodoDto.builder().id(1).userId("kirimaru").build(),
@@ -32,6 +38,8 @@ public class IndexController {
     public String add(TodoDto model){
         System.out.println(model);
         System.out.println("追加ボタンクリック");
+        
+        todoRepository.insert(model);
         return "redirect:/";
     }
 
