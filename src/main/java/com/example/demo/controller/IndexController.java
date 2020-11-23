@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
-    private final TodoRepository TodoRepository;
+    private final TodoRepository todoRepository;
 
     @GetMapping("/")
     public String index(Model model) {
