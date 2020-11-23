@@ -1,12 +1,24 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <title>TODOアプリ</title>
-    </head>
-    <body>
-        <h1>TODOアプリ</h1>
-        <h1 th:text="${message}"></h1>
-        
-    </body>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>TODOアプリ</title>
+</head>
+
+<body>
+	<h1>TODOアプリ</h1>
+	<h1 th:text="${message}"></h1>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>USER_ID</th>
+		</tr>
+		<tr th:each="todo : ${todos}">
+			<td th:text="${todo.id}"></td>
+			<td th:text="${todo.userId}"></td>
+		</tr>
+	</table>
+</body>
+
 </html>
