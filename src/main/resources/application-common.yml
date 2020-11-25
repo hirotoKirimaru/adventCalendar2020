@@ -1,0 +1,6 @@
+spring:
+  thymeleaf:
+    mode: HTML
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

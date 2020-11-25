@@ -1,8 +1,5 @@
 spring:
-  datasource: 
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2://127.0.0.1:5432/postgres
-    username: gitpod
-    password: 
-  thymeleaf:
-    mode: HTML
+  profiles:
+    include:
+      - common
+      - database-h2
