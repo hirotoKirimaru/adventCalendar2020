@@ -19,15 +19,9 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<TodoDto> todos = List.of(TodoDto.builder().id(1).userId("kirimaru").build(),
-                TodoDto.builder().id(2).userId("kirimaru").action("郵便局に行く").build());
-
         model.addAttribute("message", "きり丸さんこんにちは");
 
-        List<TodoDto> currentTodoList = todoRepository.findList("kirimaru");
-        if (!currentTodoList.isEmpty()){
-            todos = currentTodoList;
-        }
+        List<TodoDto> todos = todoRepository.findList("kirimaru");
 
         model.addAttribute("todos", todos);
         return "index";
