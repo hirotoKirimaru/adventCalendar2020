@@ -4,10 +4,7 @@ import java.util.List;
 
 import com.example.demo.controller.dto.TodoDto;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface TodoRepository {
@@ -21,5 +18,6 @@ public interface TodoRepository {
     @Select("SELECT * FROM todos WHERE user_id = #{userId}")
     public List<TodoDto> findList(String userId);
 
-
+    @Delete("DELETE FROM todos WHERE id=#{id}AND user_id = #{userId}")
+    void delete(TodoDto todoDto);
 }

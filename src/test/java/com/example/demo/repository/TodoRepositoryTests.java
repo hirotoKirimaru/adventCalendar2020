@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -64,6 +65,42 @@ public class TodoRepositoryTests {
       final List<TodoDto> kirimaru = todoRepository.findList("kirimaru");
       assertThat(kirimaru).isEqualTo(
           List.of(expected)
+      );
+    }
+  }
+
+  @Nested
+  class Delete {
+    @DisplayName("1件insertして1件Deleteする。0件取得する。")
+    @Test
+    public void test_01() {
+      TodoDto todoDto = TodoDto.builder().id(1).userId("kirimaru").action("豆腐買う").build();
+      todoRepository.insert(todoDto);
+
+      todoRepository.delete(todoDto);
+
+      final List<TodoDto> kirimaru = todoRepository.findList("kirimaru");
+      assertThat(kirimaru).isEqualTo(
+          Collections.emptyList()
+      );
+    }
+
+    @DisplayName("2件Insertして1件Deleteする。1件取得する。複数。")
+    @Test
+    public void test_02() {
+      // GIVEN
+      TodoDto todoDto = TodoDto.builder().id(1).userId("kirimaru").action("豆腐買う").build();
+      TodoDto todoDto2 = TodoDto.builder().id(2).userId("kirimaru").action("郵便局行く").build();
+      todoRepository.insert(todoDto);
+      todoRepository.insert(todoDto2);
+
+      // WHEN
+      todoRepository.delete(todoDto);
+
+      // THEN
+      final List<TodoDto> kirimaru = todoRepository.findList("kirimaru");
+      assertThat(kirimaru).isEqualTo(
+          List.of(todoDto2)
       );
     }
   }
