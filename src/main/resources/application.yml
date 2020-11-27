@@ -1,5 +1,4 @@
 spring:
   profiles:
-    include:
-      - database-local
-      - common
+    active:
+      - local
