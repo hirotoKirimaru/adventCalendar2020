@@ -15,8 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 private final UserDetailsService userDetailsService;
-
-  private final String[] PERMITTED_URL = {"/"};
   @Bean
   public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -31,20 +29,11 @@ private final UserDetailsService userDetailsService;
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests((requests) -> requests.anyRequest().authenticated());
 
-    http.formLogin()
-//        .loginPage("/login")
-//        .loginProcessingUrl("/login")
-//        .successForwardUrl("/todos")
-//        .failureUrl("/login")
-        .usernameParameter("loginId")
-        .passwordParameter("password")
-        .permitAll();
+    http.formLogin();
 
     http.logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .deleteCookies("SESSION", "JSESSIONID")
-//        .logoutUrl("/")
-//        .logoutSuccessUrl("/")
         .invalidateHttpSession(true).permitAll();
 
     http.httpBasic();
