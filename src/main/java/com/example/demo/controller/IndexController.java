@@ -19,8 +19,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("message", "きり丸さんこんにちは");
-
         List<TodoDto> todos = todoRepository.findList("kirimaru");
 
         model.addAttribute("todos", todos);
