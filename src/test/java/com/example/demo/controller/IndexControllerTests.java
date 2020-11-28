@@ -7,12 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,12 +18,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.http.HttpSession;
-
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,20 +33,18 @@ class IndexControllerTests {
   @Mock
   private HttpSession httpSession;
 
-  // テスト対象のクラスにモックをインジェクションする
   @InjectMocks
-  private IndexController demoController;
+  private IndexController indexController;
 
   @BeforeEach
   void setup() {
-    this.mockMvc = MockMvcBuilders.standaloneSetup(demoController).build();
+    this.mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
 
     AuthTargetUser user = new AuthTargetUser(new User("user", "pass", Collections.emptyList()));
     Authentication authentication = new UsernamePasswordAuthenticationToken(user, null);
     SecurityContext securityContext = new SecurityContextImpl(authentication);
 
-    //when(httpSession.getAttribute("SPRING_SECURITY_CONTEXT")).thenReturn(securityContext);
-    when(httpSession.getAttribute(any())).thenReturn(securityContext);
+    when(httpSession.getAttribute("SPRING_SECURITY_CONTEXT")).thenReturn(securityContext);
   }
 
   @Test
