@@ -4,9 +4,11 @@ import com.example.demo.controller.dto.TodoDto;
 import com.example.demo.controller.security.AuthTargetUser;
 import com.example.demo.repository.TodoRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -74,6 +76,30 @@ class IndexControllerTests {
         .andExpect(model().attribute("todos", todos))
     ;
   }
+
+  @Nested
+  class Add {
+    @Test
+    void test_01() throws Exception {
+
+      TodoDto expected = TodoDto.builder()
+          .id(123)
+          .userId("user")
+          .action("actionする")
+          .build();
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/")
+          .param("add", "add")
+          .param("id", "123")
+          .param("userId", "user")
+          .param("action", "actionする")
+      )
+          .andExpect(status().isFound());
+
+      Mockito.verify(todoRepository).insert(expected);
+    }
+  }
+
 
 }
 
