@@ -24,7 +24,7 @@
                 <td><input type="text" th:value="${todo.action}" name="action"></td>
 				<td><input type="submit" name="edit" value="修正"></td>
 				<td><input type="submit" name="delete" value="削除"></td>
-
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
 		</tr>
         <tr>
@@ -32,9 +32,9 @@
                 <td><input type="text" name="id"></td>
                 <!-- IDは自動採番 -->
                 <td><input type="text" name="userId" th:value="${#authentication.principal.username}"></td>
-                <!-- ログインユーザを何かしらで一意に決める -->
 	            <td><input type="text" name="action"></td>
 				<td><input type="submit" name="add" value="追加"></td>
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
 		</tr>
 
