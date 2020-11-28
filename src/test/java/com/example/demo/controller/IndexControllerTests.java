@@ -98,6 +98,14 @@ class IndexControllerTests {
 
       Mockito.verify(todoRepository).insert(expected);
     }
+
+    @Test
+    void test_02() throws Exception {
+      mockMvc.perform(MockMvcRequestBuilders.post("/")
+          .param("add", "add")
+      )
+          .andExpect(status().is4xxClientError());
+    }
   }
 
 

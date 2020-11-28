@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -44,7 +45,7 @@ public class IndexController {
     }
 
     @PostMapping(value="/", params="add")
-    public String add(TodoDto model){
+    public String add(@Validated TodoDto model){
         System.out.println(model);
         System.out.println("追加ボタンクリック");
 

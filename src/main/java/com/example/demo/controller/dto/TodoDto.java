@@ -5,12 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class TodoDto {
+    @NotNull
     int id;
+    @NotNull
     String userId;
+    @NotNull
     String action;
 }
