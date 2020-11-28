@@ -9,8 +9,9 @@ CREATE TABLE TODOS(
 
 
 CREATE TABLE LOGIN_USER (
-  id int,
-  username      VARCHAR(120),
+  user_id      VARCHAR(120),
   password      VARCHAR(120),
-  PRIMARY KEY (id)
+  PRIMARY KEY (user_id)
 );
+
+INSERT INTO LOGIN_USER VALUES('kirimaru', '123456');
