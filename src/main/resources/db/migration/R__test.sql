@@ -10,8 +10,8 @@ CREATE TABLE TODOS(
 
 CREATE TABLE LOGIN_USER (
   user_id      VARCHAR(120),
-  password      VARCHAR(120),
-  PRIMARY KEY (user_id)
+  password      VARCHAR(120)
 );
 
 INSERT INTO LOGIN_USER VALUES('kirimaru', '123456');
+INSERT INTO LOGIN_USER VALUES('admin', 'pass');

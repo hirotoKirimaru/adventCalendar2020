@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collections;
+import java.util.Objects;
 
 @Configuration
 @RequiredArgsConstructor
@@ -16,8 +17,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   private final UserRepository userRepository;
   @Override
   public UserDetails loadUserByUsername(String username) {
+    // TODO: userIdが取得できなかった。
     final UserDto userDto = userRepository.findByUserName(username);
-
-    return new AuthTargetUser(new User(userDto.getUserId(), "{noop}" + userDto.getPassword(), Collections.emptyList()));
+    if (Objects.isNull(userDto)){
+      throw new RuntimeException("ユーザ名かパスワードが正しくありません");
+    }
+    return new AuthTargetUser(new User(username, "{noop}" + userDto.getPassword(), Collections.emptyList()));
   }
 }
