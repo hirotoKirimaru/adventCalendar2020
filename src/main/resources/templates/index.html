@@ -19,8 +19,8 @@
 			<form action="/" method="post">
 				<td th:text="${todo.id}"></td>
                 <input type="hidden" name="id" th:value="${todo.id}">
-				<td th:text="${todo.userId}"></td>
-                <input type="hidden" name="userId" th:value="${todo.userId}">
+				<td th:text="${#authentication.principal.username}"></td>
+				<input type="hidden" name="userId" th:value="${#authentication.principal.username}">
                 <td><input type="text" th:value="${todo.action}" name="action"></td>
 				<td><input type="submit" name="edit" value="修正"></td>
 				<td><input type="submit" name="delete" value="削除"></td>
