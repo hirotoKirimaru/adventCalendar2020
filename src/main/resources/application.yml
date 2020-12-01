@@ -2,3 +2,5 @@ spring:
   profiles:
     active:
       - local
+  config:
+    use-legacy-processing: true
