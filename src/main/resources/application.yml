@@ -3,6 +3,9 @@ spring:
     active:
       - local
     group:
+      common:
+        - common-mybatis
+        - common-thymeleaf
       local:
         - database-local
         - common
