@@ -2,5 +2,12 @@ spring:
   profiles:
     active:
       - local
-  config:
-    use-legacy-processing: true
+    group:
+      local:
+        - database-local
+        - common
+      win:
+        - database-local-win
+        - common
+#  config:
+#    use-legacy-processing: true
