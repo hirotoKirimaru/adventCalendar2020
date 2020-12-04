@@ -1,6 +1,7 @@
 package com.example.demo.controller.restapi;
 
 import com.example.demo.controller.dto.TodoDto;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class TodoRestController {
     final List<TodoDto> list = todoRepository.findList(userId);
 
     if (list.isEmpty()) {
-      return ResponseEntity.notFound().build();
+      throw new NotFoundException();
     } else {
       return ResponseEntity.ok(list);
     }
