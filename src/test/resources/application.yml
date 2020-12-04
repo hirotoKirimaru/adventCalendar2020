@@ -1,5 +1,9 @@
 spring:
   profiles:
-    include:
-      - common
-      - database-h2
+    active:
+      - ut
+    group:
+      ut:
+        - database-h2
+        - common-mybatis
+        - common-thymeleaf
