@@ -12,22 +12,15 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.jdbc.BadSqlGrammarException;
-
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExceptionHandlerRepositoryTests {
-
-  ExceptionHandlerRepository target;
-
   @Mock
-  TodoRepository repository;
-  TodoRepository proxy;
+  RepositoryForTest repository;
+  RepositoryForTest proxy;
 
   @BeforeEach
   void beforeEach() {
@@ -40,27 +33,27 @@ class ExceptionHandlerRepositoryTests {
   @Test
   void throwDataAccessExceptionTo() {
     Mockito.doThrow(new InvalidDataAccessResourceUsageException("test"))
-        .when(repository).findList("kirimaru");
+        .when(repository).execute();
 
-    assertThatThrownBy(() -> proxy.findList("kirimaru"))
+    assertThatThrownBy(() -> proxy.execute())
         .isInstanceOf(DataAccessException.class);
   }
 
   @Test
   void test_01() {
-    Mockito.doThrow(new NullPointerException()).when(repository).findList("kirimaru");
+    Mockito.doThrow(new NullPointerException()).when(repository).execute();
 
-    assertThatThrownBy(() -> proxy.findList("kirimaru"))
+    assertThatThrownBy(() -> proxy.execute())
         .isInstanceOf(NullPointerException.class);
   }
 
   @Test
   void success() {
+    Object obj = new Object();
+    Mockito.when(repository.execute()).thenReturn(obj);
 
-    Mockito.when(repository.findList("kirimaru")).thenReturn(List.of());
-
-    final Object actual = proxy.findList("kirimaru");
-    assertThat(actual).isSameAs(List.of());
+    final Object actual = proxy.execute();
+    assertThat(actual).isSameAs(obj);
   }
 
 
