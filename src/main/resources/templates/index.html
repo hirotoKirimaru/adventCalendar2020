@@ -44,6 +44,10 @@
 		<input type="submit" name="upload_file" value="ファイルをアップロード">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 	</form>
+	<form method="get" th:action="|/${#authentication.principal.username}.csv|">
+		<input type="submit" name="download_file" value="ファイルをダウンロード">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
 </body>
 
 </html>
