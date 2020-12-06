@@ -30,8 +30,9 @@ class ExceptionHandlerRepositoryTests {
     proxy = factory.getProxy();
   }
 
+  @DisplayName("SpringのDataAccessExceptionを自作のDataAccessExceptionに翻訳する")
   @Test
-  void throwDataAccessExceptionTo() {
+  void test_01() {
     Mockito.doThrow(new InvalidDataAccessResourceUsageException("test"))
         .when(repository).execute();
 
@@ -39,14 +40,16 @@ class ExceptionHandlerRepositoryTests {
         .isInstanceOf(DataAccessException.class);
   }
 
+  @DisplayName("関係ないExceptionは翻訳しない")
   @Test
-  void test_01() {
+  void test_02() {
     Mockito.doThrow(new NullPointerException()).when(repository).execute();
 
     assertThatThrownBy(() -> proxy.execute())
         .isInstanceOf(NullPointerException.class);
   }
 
+  @DisplayName("正常処理では翻訳しない")
   @Test
   void success() {
     Object obj = new Object();
