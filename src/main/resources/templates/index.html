@@ -39,6 +39,11 @@
 		</tr>
 
 	</table>
+	<form method="post" action="/" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="submit" name="upload_file" value="ファイルをアップロード">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
 </body>
 
 </html>
