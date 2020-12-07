@@ -44,6 +44,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	testCompile 'org.springframework.security:spring-security-test:5.4.1'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 }
 
 test {
