@@ -14,11 +14,6 @@ public class BusinessDateComponentImpl implements BusinessDateComponent {
   @Cacheable("businessDate")
   @Override
   public int getBusinessDate() {
-    try {
-      Thread.sleep(3_000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
     return businessDateRepository.getBusinessDate();
   }
 
