@@ -17,10 +17,9 @@ public class BusinessDateComponentImpl implements BusinessDateComponent {
     return businessDateRepository.getBusinessDate();
   }
 
-  @CacheEvict(value = "businessDate", allEntries = true)
+  @CacheEvict("businessDate")
   @Override
-  public int deleteCache() {
-    return businessDateRepository.getBusinessDate();
+  public void deleteCache() {
   }
 
 }
