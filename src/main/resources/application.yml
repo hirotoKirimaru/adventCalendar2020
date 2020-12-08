@@ -4,6 +4,7 @@ spring:
       - local
     group:
       common:
+        - common-cron
         - common-mybatis
         - common-thymeleaf
       local:
