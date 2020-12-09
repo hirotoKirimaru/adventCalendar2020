@@ -1,7 +1,7 @@
 external:
   commons: &external-common
     schema: https
-    port: 80
+    port: -1
     connectionTimeout: 3
     readTimeout: 3
   dummy-user:
