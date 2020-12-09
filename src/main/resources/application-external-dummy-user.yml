@@ -1,0 +1,10 @@
+external:
+  commons: &external-common
+    schema: https
+    port: 80
+    connectionTimeout: 3
+    readTimeout: 3
+  dummy-user:
+    <<: *external-common
+    host: randomuser.me
+    path: /api

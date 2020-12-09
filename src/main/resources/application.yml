@@ -9,9 +9,13 @@ spring:
         - common-thymeleaf
       local:
         - database-local
+        - external
         - common
       win:
         - database-local-win
+        - external
         - common
+      external:
+        - external-dummy-user
 #  config:
 #    use-legacy-processing: true
