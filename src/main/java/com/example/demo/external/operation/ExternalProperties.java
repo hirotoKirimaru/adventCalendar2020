@@ -5,6 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Setter
 @ToString
 public abstract class ExternalProperties {
@@ -35,5 +38,12 @@ public abstract class ExternalProperties {
     return createUriBuilder()
         .path(path)
         .toUriString();
+  }
+
+  public String getUrl(Map<String, String> map) {
+    UriComponentsBuilder builder = createUriBuilder();
+
+    map.forEach(builder::queryParam);
+    return builder.toUriString();
   }
 }
