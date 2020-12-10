@@ -2,17 +2,12 @@ package com.example.demo.external.zipCloud;
 
 import com.example.demo.external.dto.ZipAddressDto;
 import com.example.demo.external.dto.ZipCloudDto;
-import com.example.demo.external.dummyUser.DummyUserClient;
-import com.example.demo.external.dummyUser.DummyUserClientImpl;
-import com.example.demo.external.dummyUser.DummyUserClientProperties;
-import com.example.demo.external.operation.RestOperationFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.web.client.RestOperations;
 
 import java.util.List;
 
@@ -58,7 +53,7 @@ class ZipCloudClientImplTests {
         .status("200")
         .build();
 
-    ZipCloudDto actual = target.createDummyUser("2430018");
+    ZipCloudDto actual = target.getAddressByZipcode("2430018");
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -70,7 +65,7 @@ class ZipCloudClientImplTests {
         .status("400")
         .build();
 
-    ZipCloudDto actual = target.createDummyUser("XXX");
+    ZipCloudDto actual = target.getAddressByZipcode("XXX");
 
     assertThat(actual).isEqualTo(expected);
   }

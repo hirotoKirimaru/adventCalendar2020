@@ -28,7 +28,7 @@ public class ZipCloudClientImpl implements ZipCloudClient {
 
 
   @Override
-  public ZipCloudDto createDummyUser(String zipCode) {
+  public ZipCloudDto getAddressByZipcode(String zipCode) {
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setSupportedMediaTypes(List.of(MediaType.TEXT_PLAIN));
 
