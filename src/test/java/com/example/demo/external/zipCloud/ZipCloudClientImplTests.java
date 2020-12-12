@@ -3,6 +3,7 @@ package com.example.demo.external.zipCloud;
 import com.example.demo.external.dto.ZipAddressDto;
 import com.example.demo.external.dto.ZipCloudDto;
 import com.example.demo.external.operation.RestOperationFactory;
+import com.example.demo.external.operation.RestTemplateInterceptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ class ZipCloudClientImplTests {
     properties.setPort(0);
     properties.setPath("/api/search");
 
-    RestOperationFactory restOperationFactory = new RestOperationFactory(restTemplateBuilder);
+    RestOperationFactory restOperationFactory = new RestOperationFactory(restTemplateBuilder, new RestTemplateInterceptor());
     RestOperations restOperations = restOperationFactory.createRestOperations(properties);
 
     target = new ZipCloudClientImpl(properties, restOperations);

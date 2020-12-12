@@ -1,6 +1,7 @@
 package com.example.demo.external.dummyUser;
 
 import com.example.demo.external.operation.RestOperationFactory;
+import com.example.demo.external.operation.RestTemplateInterceptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ class DummyUserClientImplTests {
     properties.setPort(0);
     properties.setPath("/api");
 
-    RestOperationFactory restOperationFactory = new RestOperationFactory(restTemplateBuilder);
+    RestOperationFactory restOperationFactory = new RestOperationFactory(restTemplateBuilder, new RestTemplateInterceptor());
     RestOperations restOperations = restOperationFactory.createRestOperations(properties);
 
     target = new DummyUserClientImpl(properties, restOperations);
