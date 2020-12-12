@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.test.context.TestSecurityContextHolder;
+import org.springframework.security.test.context.support.WithSecurityContext;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,7 +29,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Disabled("認証できていない")
+@Disabled("認証できたが、Controllerのアクセスができていないようだ")
 @WebMvcTest(controllers = IndexController.class)
 @ContextConfiguration(classes = SecurityConfig.class)
 class IndexController2Tests {
@@ -40,7 +43,8 @@ class IndexController2Tests {
   @BeforeEach
   void setup() {
     AuthTargetUser user = new AuthTargetUser(new User("user", "pass", Collections.emptyList()));
-    Authentication authentication = new UsernamePasswordAuthenticationToken(user, null);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+//    Authentication authentication = new UsernamePasswordAuthenticationToken(user, "", List.of());
     TestSecurityContextHolder.setAuthentication(authentication);
   }
 
