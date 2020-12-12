@@ -2,12 +2,14 @@ package com.example.demo.external.zipCloud;
 
 import com.example.demo.external.dto.ZipAddressDto;
 import com.example.demo.external.dto.ZipCloudDto;
+import com.example.demo.external.operation.RestOperationFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.web.client.RestOperations;
 
 import java.util.List;
 
@@ -31,7 +33,10 @@ class ZipCloudClientImplTests {
     properties.setPort(0);
     properties.setPath("/api/search");
 
-    target = new ZipCloudClientImpl(properties, restTemplateBuilder);
+    RestOperationFactory restOperationFactory = new RestOperationFactory(restTemplateBuilder);
+    RestOperations restOperations = restOperationFactory.createRestOperations(properties);
+
+    target = new ZipCloudClientImpl(properties, restOperations);
   }
 
   @Test
