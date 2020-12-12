@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,11 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Disabled("認証できたが、Controllerのアクセスができていないようだ")
 @WebMvcTest(controllers = IndexController.class)
-@ContextConfiguration(classes = SecurityConfig.class)
 class IndexController2Tests {
   @Autowired
   private MockMvc mockMvc;
@@ -44,7 +44,6 @@ class IndexController2Tests {
   void setup() {
     AuthTargetUser user = new AuthTargetUser(new User("user", "pass", Collections.emptyList()));
     Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
-//    Authentication authentication = new UsernamePasswordAuthenticationToken(user, "", List.of());
     TestSecurityContextHolder.setAuthentication(authentication);
   }
 
@@ -87,6 +86,7 @@ class IndexController2Tests {
           .build();
 
       mockMvc.perform(MockMvcRequestBuilders.post("/")
+			  .with(csrf())
           .param("add", "add")
           .param("id", "123")
           .param("userId", "user")
@@ -100,6 +100,7 @@ class IndexController2Tests {
     @Test
     void test_02() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.post("/")
+			  .with(csrf())
           .param("add", "add")
       )
           .andExpect(status().is4xxClientError());
