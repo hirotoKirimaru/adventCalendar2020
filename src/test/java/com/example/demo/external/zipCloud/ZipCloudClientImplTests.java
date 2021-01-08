@@ -6,10 +6,8 @@ import com.example.demo.external.operation.RestOperationFactory;
 import com.example.demo.external.operation.RestTemplateInterceptor;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -20,10 +18,15 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.client.RestOperations;
 import ru.lanwen.wiremock.ext.WiremockResolver;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringJUnitConfig(classes = {
     RestTemplateAutoConfiguration.class
@@ -140,6 +143,62 @@ class ZipCloudClientImplTests {
     assertThat(actual).isEqualTo(expected);
     server.verify(1, getRequestedFor(urlEqualTo("/api/search?zipcode=XXX")));
 
+  }
+
+  @DisplayName("ファイルから読み込むようにするだけ")
+  @Nested
+  class BodyJson {
+
+    @Test
+    void test_01() {
+      // GIVEN
+      String responseBody = readfile("/external/zipCloud/01/request.json");
+      server.stubFor(
+          get("/api/search?zipcode=2430018").willReturn(
+              aResponse()
+                  .withStatus(200)
+                  .withHeader("Content-Type", "text/plain")
+                  .withBody(responseBody)
+          )
+      );
+
+
+      ZipCloudDto expected = ZipCloudDto.builder()
+          .message(null)
+          .results(List.of(
+              ZipAddressDto.builder()
+                  .address1("神奈川県")
+                  .address2("厚木市")
+                  .address3("中町")
+                  .kana1("ｶﾅｶﾞﾜｹﾝ")
+                  .kana2("ｱﾂｷﾞｼ")
+                  .kana3("ﾅｶﾁｮｳ")
+                  .prefcode("14")
+                  .zipcode("2430018")
+                  .build()
+          ))
+          .status("200")
+          .build();
+
+      ZipCloudDto actual = target.getAddressByZipcode("2430018");
+
+      assertThat(actual).isEqualTo(expected);
+
+      server.verify(1, getRequestedFor(urlEqualTo("/api/search?zipcode=2430018")));
+    }
+  }
+
+  /**
+   * getResourceAsStreamを使う！
+   */
+  private String readfile(String path) {
+    String responseBody = "";
+    try (InputStream input = BodyJson.class.getResourceAsStream(path)){
+        responseBody = IOUtils.toString(input, StandardCharsets.UTF_8.toString());
+    } catch (IOException e) {
+      fail(e);
+    }
+    return responseBody;
   }
 
   @Disabled("毎回実行すると迷惑なので、基本はDisabledにする")

@@ -1,0 +1,14 @@
+{
+  "message":null,
+  "results": [{
+    "address1":"神奈川県",
+    "address2" : "厚木市",
+    "address3" : "中町",
+    "kana1" : "ｶﾅｶﾞﾜｹﾝ",
+    "kana2" : "ｱﾂｷﾞｼ",
+    "kana3" : "ﾅｶﾁｮｳ",
+    "prefcode" : "14",
+    "zipcode" : "2430018"
+  }],
+  "status": 200
+}
