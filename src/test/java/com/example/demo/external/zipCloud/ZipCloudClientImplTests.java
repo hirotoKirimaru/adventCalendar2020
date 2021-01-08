@@ -152,7 +152,7 @@ class ZipCloudClientImplTests {
     @Test
     void test_01() {
       // GIVEN
-      String responseBody = readfile("/external/zipCloud/01/request.json");
+      String responseBody = readfile(Paths.get("external/zipCloud/01/request.json"));
       server.stubFor(
           get("/api/search?zipcode=2430018").willReturn(
               aResponse()
@@ -191,10 +191,11 @@ class ZipCloudClientImplTests {
   /**
    * getResourceAsStreamを使う！
    */
-  private String readfile(String path) {
+  private String readfile(Path path) {
     String responseBody = "";
-    try (InputStream input = BodyJson.class.getResourceAsStream(path)){
-        responseBody = IOUtils.toString(input, StandardCharsets.UTF_8.toString());
+    String name = "/" + path.toString();
+    try (InputStream input = BodyJson.class.getResourceAsStream(name)) {
+      responseBody = IOUtils.toString(input, StandardCharsets.UTF_8.toString());
     } catch (IOException e) {
       fail(e);
     }
