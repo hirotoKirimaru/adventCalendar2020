@@ -26,9 +26,9 @@ jobs:
       run: ./gradlew test
     - name: Build with Gradle
       run: ./gradlew build
-  create_db:
+#   create_db:
 
-    runs-on: ubuntu-latest
-    steps:
-    - name: DB定義の生成
-      run: docker run -v "$PWD/schema:/output" --net="host" schemaspy/schemaspy:6.1.0 -t pgsql -host localhost:5432 -db database -u user -p pass
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: DB定義の生成
+#       run: docker run -v "$PWD/schema:/output" --net="host" schemaspy/schemaspy:6.1.0 -t pgsql -host localhost:5432 -db database -u user -p pass
