@@ -26,7 +26,7 @@ class UserRepositoryTests {
 
   @Test
   public void test_02(){
-    jdbcTemplate.execute("INSERT INTO LOGIN_USER VALUES ('test', 'password')");
+    jdbcTemplate.execute("INSERT INTO LOGIN_USER VALUES ('test', 'password', '0')");
 
     final UserDto expected = UserDto.builder().userId("test").password("password").build();
     final UserDto user = userRepository.findByUserName("test");
