@@ -11,14 +11,16 @@ CREATE TABLE TODOS(
 
 CREATE TABLE LOGIN_USER (
   user_id      VARCHAR(120),
-  password      VARCHAR(120)
+  password     VARCHAR(120),
+  role         VARCHAR(1)
 );
 
 CREATE TABLE BUSINESS_DATE(
   business_date int
 );
 
-INSERT INTO LOGIN_USER VALUES('kirimaru', '123456');
-INSERT INTO LOGIN_USER VALUES('admin', 'pass');
+INSERT INTO LOGIN_USER VALUES('kirimaru', '123456', '0');
+INSERT INTO LOGIN_USER VALUES('admin', 'pass', '1');
+INSERT INTO LOGIN_USER VALUES('master', 'master', '2');
 
 INSERT INTO BUSINESS_DATE VALUES (2000);
