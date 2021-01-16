@@ -31,7 +31,7 @@ class UserRepositoryTests {
   public void test_02(){
     jdbcTemplate.execute("INSERT INTO LOGIN_USER VALUES ('test', 'password', '0')");
 
-    final UserDto expected = UserDto.builder().userId("test").password("password").build();
+    final UserDto expected = UserDto.builder().userId("test").password("password").role("0").build();
     final UserDto user = userRepository.findByUserName("test");
 
     assertThat(user).isEqualTo(expected);
