@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.constant.CodeConstant;
 import com.example.demo.repository.dto.UserDto;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -41,8 +42,8 @@ class UserRepositoryTests {
   @Test
   public void test_03(){
     List<UserDto> expected =
-        List.of(UserDto.builder().userId("admin").password("pass").role("1").build());
-    List<UserDto> byRole = userRepository.findByRole(UserRepository.Role.ADMIN);
+        List.of(UserDto.builder().userId("admin").password("pass").role("ADMIN").build());
+    List<UserDto> byRole = userRepository.findByRole(CodeConstant.Role.ADMIN);
 
     assertThat(byRole).isEqualTo(expected);
 
