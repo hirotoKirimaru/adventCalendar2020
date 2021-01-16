@@ -6,6 +6,8 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @MybatisTest
@@ -32,6 +34,17 @@ class UserRepositoryTests {
     final UserDto user = userRepository.findByUserName("test");
 
     assertThat(user).isEqualTo(expected);
+
+  }
+
+
+  @Test
+  public void test_03(){
+    List<UserDto> expected =
+        List.of(UserDto.builder().userId("admin").password("pass").role("1").build());
+    List<UserDto> byRole = userRepository.findByRole(UserRepository.Role.ADMIN);
+
+    assertThat(byRole).isEqualTo(expected);
 
   }
 }
