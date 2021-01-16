@@ -7,3 +7,7 @@ spring:
         - database-h2
         - common-mybatis
         - common-thymeleaf
+logging.level:
+  root: TRACE
+  org.springframework.web: DEBUG
+  org.hibernate: ERROR
