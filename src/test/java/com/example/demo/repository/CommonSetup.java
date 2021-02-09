@@ -43,16 +43,13 @@ public class CommonSetup {
     }
   }
 
-  protected void insertDummy(DummyDto... userDtoList) {
-    this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
-        .withTableName(DbName.DUMMY.getTable())
+  protected void insertDummy(DummyDto... records) {
+    this.simpleJdbcInsert =
+        new SimpleJdbcInsert(dataSource)
+            .withTableName(DbName.DUMMY.getTable())
     ;
-    for (var userDto : userDtoList) {
-      var param = new HashMap<String, Object>();
-      param.put("id_first", userDto.getId().getIdFirst());
-      param.put("id_second", userDto.getId().getIdSecond());
-
-      this.simpleJdbcInsert.execute(param);
+    for (var record : records) {
+      this.simpleJdbcInsert.execute(toMap(record));
     }
 
   }
