@@ -1,32 +1,20 @@
 package com.example.demo.external.zipCloud;
 
+import com.example.demo.external.anotation.ZipCloudRest;
 import com.example.demo.external.dto.ZipCloudDto;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.MediaType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class ZipCloudClientImpl implements ZipCloudClient {
   private final ZipCloudClientProperties props;
+  @ZipCloudRest
   private final RestOperations restOperations;
-
-  public ZipCloudClientImpl(
-      ZipCloudClientProperties props,
-      @Qualifier("zipCloudRestOperations") RestOperations restOperations
-  ) {
-    this.props = props;
-    this.restOperations = restOperations;
-  }
-
 
   @Override
   public ZipCloudDto getAddressByZipcode(String zipCode) {
