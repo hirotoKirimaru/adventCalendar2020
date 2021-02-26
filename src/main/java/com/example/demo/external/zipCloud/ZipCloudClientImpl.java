@@ -10,11 +10,15 @@ import org.springframework.web.client.RestOperations;
 import java.util.HashMap;
 
 @Component
-@RequiredArgsConstructor
 public class ZipCloudClientImpl implements ZipCloudClient {
   private final ZipCloudClientProperties props;
-  @ZipCloudRest
   private final RestOperations restOperations;
+
+  public ZipCloudClientImpl(ZipCloudClientProperties props,
+                            @ZipCloudRest RestOperations restOperations) {
+    this.props = props;
+    this.restOperations = restOperations;
+  }
 
   @Override
   public ZipCloudDto getAddressByZipcode(String zipCode) {

@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Qualifier
+@Qualifier("zipCloudRestOperations")
 public @interface ZipCloudRest {
 }
