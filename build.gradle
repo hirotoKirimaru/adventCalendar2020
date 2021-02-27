@@ -52,3 +52,13 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootJar{
+//	archiveBaseName = 'base'
+//	archiveAppendix = 'add'
+//	archiveVersion = '0.1'
+//	archiveClassifier = 'gorilla'
+//	archiveExtension = 'jar'
+
+	archiveFileName = 'adventcalender.jar'
+}
