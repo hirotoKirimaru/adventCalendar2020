@@ -12,8 +12,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DummyDto implements Serializable {
-    DummyIdDto id;
-    String fieldFirst;
-    String fieldSecond;
-    String fieldThird;
+  DummyIdDto id;
+  String fieldFirst;
+  String fieldSecond;
+  String fieldThird;
+
+  public boolean isDummy() {
+    return id == null;
+  }
 }

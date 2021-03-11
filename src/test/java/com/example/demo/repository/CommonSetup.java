@@ -56,7 +56,7 @@ public class CommonSetup {
 
   public Map<String, Object> toMap(Serializable entity) {
     HashMap<String, Object> rtn = new HashMap<>();
-    var source = new BeanPropertySqlParameterSource(entity);
+    var source = new CustomBeanPropertySqlParameterSource(entity);
 
     for (String readablePropertyName : source.getReadablePropertyNames()) {
       // クラス名は不要
